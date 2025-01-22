@@ -1,0 +1,182 @@
+/* TradingView/DailyFX Inspired Dark Theme */
+:root {
+    /* Color Palette */
+    --background-dark: #1c2128;     /* Deep dark background */
+    --background-darker: #121418;   /* Even darker background */
+    --text-primary: #e0e3e6;        /* Light text */
+    --text-secondary: #8e9297;      /* Muted text */
+    
+    /* Trading Colors */
+    --bullish-green: #2ecc71;       /* Bullish green */
+    --bearish-red: #e74c3c;         /* Bearish red */
+    --neutral-blue: #3498db;        /* Neutral blue */
+    
+    /* UI Colors */
+    --border-color: #2c3e50;        /* Dark border */
+    --input-background: #252c36;    /* Input field background */
+    --hover-background: #2c3e50;    /* Hover effect background */
+    
+    /* Typography */
+    --font-primary: 'Inter', 'Roboto Mono', monospace, sans-serif;
+}
+
+/* Dark Mode Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-color: var(--text-secondary) var(--background-dark);
+    scrollbar-width: thin;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styling - Trading Terminal Look */
+header {
+    background-color: var(--background-darker);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Section Styling - Trading Terminal Panels */
+section {
+    background-color: var(--background-darker);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--neutral-blue);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* Form Elements - Trading Terminal Style */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    background-color: var(--input-background);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--neutral-blue);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Buttons - Trading Action Style */
+.btn {
+    background-color: var(--neutral-blue);
+    color: var(--text-primary);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Status and Sentiment Indicators */
+.bullish { color: var(--bullish-green); }
+.bearish { color: var(--bearish-red); }
+.neutral { color: var(--neutral-blue); }
+
+/* Grid Layouts */
+.grid-3, .grid-2 {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+/* Checkboxes - Trading Terminal Style */
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    accent-color: var(--neutral-blue);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: repeat(1, 1fr); }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-secondary);
+    border-radius: 4px;
+}
+
+/* Hover Effects */
+.hover-effect:hover {
+    background-color: var(--hover-background);
+}
+
+/* Utility Classes */
+.text-bullish { color: var(--bullish-green); }
+.text-bearish { color: var(--bearish-red); }
+.text-neutral { color: var(--neutral-blue); }
+.text-muted { color: var(--text-secondary); }

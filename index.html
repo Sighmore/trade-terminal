@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Terminal Analysis</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #2f2f2f;
+            color: #ffffff;
+        }
+        .text-bullish {
+            color: #34c759;
+        }
+        .text-bearish {
+            color: #ff3b30;
+        }
+        .text-neutral {
+            color: #808080;
+        }
+        .grid-2, .grid-3 {
+            display: grid;
+            grid-gap: 10px;
+        }
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3f3f3f;
+            color: #ffffff;
+        }
+        .form-group input[type="checkbox"] {
+            width: auto;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #3e8e41;
+        }
+        
+        /* PDF Export Specific Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #pdf-content, #pdf-content * {
+                visibility: visible;
+            }
+            #pdf-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="pdf-content">
+        <header>
+            <h1>Trading Terminal</h1>
+            <div class="header-actions">
+                <span class="text-bullish">Market Status: Neutral</span>
+            </div>
+        </header>
+        
+        <main>
+            <section id="market-overview">
+                <h2>Market Overview</h2>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="market-index">Currency Pair</label>
+                        <select id="market-index">
+                            <option value="">Select pair</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="current-price">Current Price</label>
+                        <input type="number" id="current-price" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="price-change">Price Change</label>
+                        <input type="text" id="price-change" placeholder="+0.00 (0.00%)" readonly class="text-bullish">
+                    </div>
+                </div>
+            </section>
+
+            <section id="economic-indicators">
+                <h2>Economic Indicators</h2>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="gdp-growth">GDP Growth</label>
+                        <input type="number" id="gdp-growth" placeholder="GDP Rate" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="unemployment-rate">Unemployment</label>
+                        <input type="number" id="unemployment-rate" placeholder="Unemployment %" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="inflation-rate">Inflation</label>
+                        <input type="number" id="inflation-rate" placeholder="Inflation %" step="0.1">
+                    </div>
+                </div>
+            </section>
+
+            <section id="market-analysis">
+                <h2>Market Analysis</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="market-bias">Market Bias</label>
+                        <select id="market-bias">
+                            <option value="">Select Bias</option>
+                            <option value="bullish" class="text-bullish">Bullish</option>
+                            <option value="bearish" class="text-bearish">Bearish</option>
+                            <option value="neutral" class="text-neutral">Neutral</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="market-sentiment">Market Sentiment</label>
+                        <select id="market-sentiment">
+                            <option value="">Select Sentiment</option>
+                            <option value="very-bullish" class="text-bullish">Very Bullish</option>
+                            <option value="moderately-bullish" class="text-bullish">Moderately Bullish</option>
+                            <option value="neutral" class="text-neutral">Neutral</option>
+                            <option value="moderately-bearish" class="text-bearish">Moderately Bearish</option>
+                            <option value="very-bearish" class="text-bearish">Very Bearish</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="market-analysis-notes">Analysis Notes</label>
+                    <textarea id="market-analysis-notes" placeholder="Detailed market analysis and reasoning"></textarea>
+                </div>
+            </section>
+
+            <section id="trade-strategy">
+                <h2>Trade Strategy</h2>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="trade-direction">Trade Direction</label>
+                        <select id="trade-direction">
+                            <option value="">Select Direction</option>
+                            <option value="long" class="text-bullish">Long</option>
+                            <option value="short" class="text-bearish">Short</option>
+                            <option value="neutral" class="text-neutral">Neutral</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="entry-price">Entry Price</label>
+                        <input type="number" id="entry-price" placeholder="Entry Price" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="position-size">Position Size</label>
+                        <input type="number" id="position-size" placeholder="Position Size" step="0.1">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="stop-loss">Stop Loss</label>
+                        <input type="number" id="stop-loss" placeholder="Stop Loss" step="0.01" class="text-bearish">
+                    </div>
+                    <div class="form-group">
+                        <label for="take-profit">Take Profit</label>
+                        <input type="number" id="take-profit" placeholder="Take Profit" step="0.01" class="text-bullish">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="trade-rationale">Trade Rationale</label>
+                    <textarea id="trade-rationale" placeholder="Detailed reasoning for the trade strategy"></textarea>
+                </div>
+            </section>
+
+            <section id="execution-checklist">
+                <h2>Execution Checklist</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Checklist</label>
+                        <div>
+                            <label>
+                                <input type="checkbox" id="asia-sweep"> 
+                                Asia Sweep Completed
+                            </label>
+                            <label>
+                                <input type="checkbox" id="eab-check"> 
+                                EAB in 15 min
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group text-right">
+                        <button id="execute-trade" class="btn">Execute Trade</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Market Pair Configuration
+        const MARKET_PAIRS = {
+            XAUUSD: {
+                name: 'XAUUSD',
+                defaultPrice: 2000,
+                priceRange: { min: 1800, max: 2200 }
+            },
+            GBPUSD: {
+                name: 'GBPUSD',
+                defaultPrice: 1.25,
+                priceRange: { min: 1.10, max: 1.40 }
+            }
+        };
+
+        // Dynamic Market Overview
+        function updateMarketOverview() {
+            const marketPairSelect = document.getElementById('market-index');
+            const currentPrice = document.getElementById('current-price');
+            const priceChange = document.getElementById('price-change');
+
+            // Populate market pair dropdown if not already done
+            if (marketPairSelect.options.length <= 1) {
+                Object.keys(MARKET_PAIRS).forEach(pair => {
+                    const option = document.createElement('option');
+                    option.value = pair;
+                    option.textContent = pair;
+                    marketPairSelect.appendChild(option);
+                });
+            }
+
+            // Get selected pair or default to first pair
+            const selectedPair = marketPairSelect.value || 'XAUUSD';
+            const pairData = MARKET_PAIRS[selectedPair];
+
+            // Set default price if not already set
+            if (!currentPrice.value) {
+                currentPrice.value = pairData.defaultPrice.toFixed(4);
+            }
+        }
+
+        // Market Pair Selection Handler
+        function setupMarketPairSelection() {
+            const marketPairSelect = document.getElementById('market-index');
+            const currentPrice = document.getElementById('current-price');
+            const priceChange = document.getElementById('price-change');
+            
+            marketPairSelect.addEventListener('change', () => {
+                const selectedPair = marketPairSelect.value;
+                const pairData = MARKET_PAIRS[selectedPair];
+                
+                // Reset price to default for selected pair
+                currentPrice.value = pairData.defaultPrice.toFixed(4);
+                priceChange.value = '0.00 (0.00%)';
+                priceChange.classList.remove('text-bullish', 'text-bearish');
+            });
+        }
+
+        // Price Input Interaction
+        function setupPriceInputs() {
+            const currentPrice = document.getElementById('current-price');
+            const priceChange = document.getElementById('price-change');
+            const marketPairSelect = document.getElementById('market-index');
+
+            // Allow manual price input with validation
+            currentPrice.addEventListener('change', function() {
+                const selectedPair = marketPairSelect.value;
+                const pairData = MARKET_PAIRS[selectedPair];
+                const inputPrice = parseFloat(this.value);
+
+                // Validate input price
+                if (inputPrice < pairData.priceRange.min || inputPrice > pairData.priceRange.max) {
+                    alert(`Price for ${selectedPair} must be between ${pairData.priceRange.min} and ${pairData.priceRange.max}`);
+                    this.value = pairData.defaultPrice.toFixed(4);
+                }
+
+                // Calculate price change
+                const defaultPrice = pairData.defaultPrice;
+                const change = inputPrice - defaultPrice;
+                const changePercent = ((change / defaultPrice) * 100).toFixed(2);
+
+                // Update price change field
+                priceChange.value = `${change > 0 ? '+' : ''}${change.toFixed(4)} (${changePercent}%)`;
+                priceChange.classList.remove('text-bullish', 'text-bearish');
+                priceChange.classList.add(change > 0 ? 'text-bullish' : 'text-bearish');
+            });
+        }
+
+        // Economic Indicators Simulation
+        function calculateEconomicIndicators() {
+            const gdpGrowth = document.getElementById('gdp-growth');
+            const unemploymentRate = document.getElementById('unemployment-rate');
+            const inflationRate = document.getElementById('inflation-rate');
+
+            gdpGrowth.value = (Math.random() * 4).toFixed(1);
+            unemploymentRate.value = (Math.random() * 6).toFixed(1);
+            inflationRate.value = (Math.random() * 6).toFixed(1);
+        }
+
+        // Trade Strategy Interaction
+        function setupTradeStrategy() {
+            const entryPrice = document.getElementById('entry-price');
+            const stopLoss = document.getElementById('stop-loss');
+            const takeProfit = document.getElementById('take-profit');
+            const tradeRationale = document.getElementById('trade-rationale');
+
+            function calculateRiskReward() {
+                const entry = parseFloat(entryPrice.value) || 0;
+                const stop = parseFloat(stopLoss.value) || 0;
+                const profit = parseFloat(takeProfit.value) || 0;
+
+                if (entry && stop && profit) {
+                    const riskAmount = Math.abs(entry - stop);
+                    const rewardAmount = Math.abs(profit - entry);
+                    const riskRewardRatio = rewardAmount / riskAmount;
+
+                    tradeRationale.value = `Risk Analysis:
+- Risk Amount: ${riskAmount.toFixed(2)}
+- Reward Amount: ${rewardAmount.toFixed(2)}
+- Risk-Reward Ratio: ${riskRewardRatio.toFixed(2)}:1
+
+${riskRewardRatio > 2 ? 'Favorable trade setup.' : 'Reassess trade parameters.'}`;
+                }
+            }
+
+            [entryPrice, stopLoss, takeProfit].forEach(el => {
+                el.addEventListener('change', calculateRiskReward);
+            });
+        }
+
+        // Execution Checklist
+        function setupExecutionChecklist() {
+            const asiaSweep = document.getElementById('asia-sweep');
+            const eabCheck = document.getElementById('eab-check');
+            const executeTrade = document.getElementById('execute-trade');
+
+            function updateTradeButton() {
+                executeTrade.disabled = !(asiaSweep.checked && eabCheck.checked);
+                executeTrade.style.opacity = executeTrade.disabled ? '0.5' : '1';
+            }
+
+            asiaSweep.addEventListener('change', updateTradeButton);
+            eabCheck.addEventListener('change', updateTradeButton);
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            updateMarketOverview();
+            setupMarketPairSelection();
+            setupPriceInputs();
+            calculateEconomicIndicators();
+            setupTradeStrategy();
+            setupExecutionChecklist();
+        });
+    </script>
+</body>
+</html>
