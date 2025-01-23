@@ -1,182 +1,712 @@
-/* TradingView/DailyFX Inspired Dark Theme */
+/* Professional Trading Research Website Styles */
 :root {
-    /* Color Palette */
-    --background-dark: #1c2128;     /* Deep dark background */
-    --background-darker: #121418;   /* Even darker background */
-    --text-primary: #e0e3e6;        /* Light text */
-    --text-secondary: #8e9297;      /* Muted text */
-    
-    /* Trading Colors */
-    --bullish-green: #2ecc71;       /* Bullish green */
-    --bearish-red: #e74c3c;         /* Bearish red */
-    --neutral-blue: #3498db;        /* Neutral blue */
-    
-    /* UI Colors */
-    --border-color: #2c3e50;        /* Dark border */
-    --input-background: #252c36;    /* Input field background */
-    --hover-background: #2c3e50;    /* Hover effect background */
-    
-    /* Typography */
-    --font-primary: 'Inter', 'Roboto Mono', monospace, sans-serif;
+    /* TradingView-inspired Dark Theme Color Palette */
+    --primary-color: #1a1a2e;       /* Deep dark blue-black background */
+    --secondary-color: #16213e;     /* Slightly lighter background for sections */
+    --accent-color: #0f3460;        /* Accent color for headers and highlights */
+    --background-color: #0e1525;    /* Darkest background */
+    --text-color: #e5e5e5;          /* Light gray text for readability */
+    --input-background: #212738;    /* Dark input background */
+    --hover-color: #273244;         /* Hover and interactive element background */
+    --border-color: #394b69;        /* Subtle border color */
 }
 
-/* Dark Mode Reset */
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scrollbar-color: var(--text-secondary) var(--background-dark);
-    scrollbar-width: thin;
 }
 
 body {
-    font-family: var(--font-primary);
-    background-color: var(--background-dark);
-    color: var(--text-primary);
+    font-family: 'Roboto', 'Arial', sans-serif;
     line-height: 1.6;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 80px; /* Adjust based on header height */
 }
 
-/* Header Styling - Trading Terminal Look */
+/* Modern Header Styling for Both Themes */
 header {
-    background-color: var(--background-darker);
-    color: var(--text-primary);
+    background: linear-gradient(
+        to right, 
+        rgba(255, 255, 255, 0.9), 
+        rgba(240, 240, 240, 0.9)
+    );
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Light Theme Header */
+header nav {
+    color: #1a1a2e;  /* Dark text for light theme */
+}
+
+header nav .logo {
+    color: #1a1a2e;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+header nav .logo:hover {
+    transform: scale(1.05);
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+header nav ul li a {
+    color: #1a1a2e;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #0f3460;
+    transition: width 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #0f3460;
+}
+
+header nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Dark Theme Header */
+body.dark-theme header {
+    background: linear-gradient(
+        to right, 
+        rgba(22, 33, 62, 0.9), 
+        rgba(15, 52, 96, 0.9)
+    );
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme header nav .logo {
+    color: var(--text-color);
+}
+
+body.dark-theme header nav ul li a {
+    color: var(--text-color);
+}
+
+body.dark-theme header nav ul li a::after {
+    background-color: var(--accent-color);
+}
+
+body.dark-theme header nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* Scroll-based header effects */
+header.scrolled {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateY(0);
+}
+
+/* Navigation Styles */
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 25px;
-    border-bottom: 2px solid var(--border-color);
-    margin-bottom: 20px;
+    padding: 1rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-header h1 {
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 600;
+nav ul {
+    display: flex;
+    list-style: none;
 }
 
-/* Section Styling - Trading Terminal Panels */
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+nav ul li a:hover {
+    color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+/* Main Content Sections */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 5%;
+}
+
 section {
-    background-color: var(--background-darker);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 12px;  /* Rounded corners for depth */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+section:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
 }
 
 section h2 {
-    color: var(--text-primary);
-    border-bottom: 2px solid var(--neutral-blue);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-}
-
-/* Form Elements - Trading Terminal Style */
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    color: var(--text-secondary);
-    margin-bottom: 5px;
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
     font-weight: 500;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
 }
 
-input, select, textarea {
+/* Responsive Grid Layouts */
+.research-grid, 
+.outlook-grid, 
+.sentiment-grid, 
+.observations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+/* Form Styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+input, 
+textarea, 
+select {
     width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
     background-color: var(--input-background);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus, 
+textarea:focus, 
+select:focus {
+    border-color: var(--secondary-color);
     outline: none;
-    border-color: var(--neutral-blue);
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
 textarea {
+    min-height: 120px;
     resize: vertical;
-    min-height: 100px;
+    color: var(--text-color);  /* Explicitly set text color */
+    background-color: var(--input-background);
+    border: 2px solid var(--border-color);
+    caret-color: var(--text-color);  /* Ensure cursor is visible */
 }
 
-/* Buttons - Trading Action Style */
-.btn {
-    background-color: var(--neutral-blue);
-    color: var(--text-primary);
-    border: none;
-    padding: 12px 20px;
+body.dark-theme textarea {
+    color: var(--text-color);  /* Ensure text is light in dark mode */
+    background-color: var(--secondary-color);  /* Slightly different background for contrast */
+}
+
+/* Checkbox and Radio Styles */
+.checklist, .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.checklist label, 
+.radio-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checklist input[type="checkbox"], 
+.radio-group input[type="radio"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Global button styles for dark theme */
+body.dark-theme button,
+body.dark-theme .btn,
+body.dark-theme input[type="submit"],
+body.dark-theme input[type="button"] {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
     border-radius: 4px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
 }
 
-.btn:hover {
-    background-color: #2980b9;
+body.dark-theme button:hover,
+body.dark-theme .btn:hover,
+body.dark-theme input[type="submit"]:hover,
+body.dark-theme input[type="button"]:hover {
+    background-color: var(--hover-color);
     transform: translateY(-2px);
 }
 
-/* Status and Sentiment Indicators */
-.bullish { color: var(--bullish-green); }
-.bearish { color: var(--bearish-red); }
-.neutral { color: var(--neutral-blue); }
-
-/* Grid Layouts */
-.grid-3, .grid-2 {
-    display: grid;
-    gap: 20px;
+body.dark-theme button:active,
+body.dark-theme .btn:active,
+body.dark-theme input[type="submit"]:active,
+body.dark-theme input[type="button"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-
-/* Checkboxes - Trading Terminal Style */
-input[type="checkbox"] {
-    width: auto;
-    margin-right: 10px;
-    accent-color: var(--neutral-blue);
+/* Ensure all text elements have consistent color */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6,
+body.dark-theme p,
+body.dark-theme span,
+body.dark-theme li,
+body.dark-theme a {
+    color: var(--text-color);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .grid-3 { grid-template-columns: repeat(2, 1fr); }
-    .grid-2 { grid-template-columns: repeat(1, 1fr); }
+body.dark-theme a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 8px;
+body.dark-theme a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--background-dark);
+/* Theme-specific styles */
+body.dark-theme {
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--text-secondary);
+body.dark-theme header {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+body.dark-theme section {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+    background-color: var(--input-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    border-width: 1px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+body.dark-theme input:focus,
+body.dark-theme textarea:focus,
+body.dark-theme select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 6px rgba(15, 52, 96, 0.4);
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder,
+body.dark-theme select::placeholder {
+    color: #6b7280;  /* Muted placeholder color */
+}
+
+body.dark-theme .input-group label {
+    color: var(--text-color);  /* Ensure label text is light and readable */
+}
+
+body.dark-theme .input-group input, 
+body.dark-theme .input-group textarea, 
+body.dark-theme .input-group select {
+    color: var(--text-color);  /* Light text color for inputs */
+    background-color: var(--secondary-color);  /* Dark background for contrast */
+    border: 2px solid var(--border-color);  /* Visible border */
+    caret-color: var(--text-color);  /* Visible text cursor */
+}
+
+body.dark-theme .input-group input::placeholder,
+body.dark-theme .input-group textarea::placeholder {
+    color: #a0a0a0;  /* Light gray placeholder that's visible on dark backgrounds */
+    opacity: 0.7;    /* Slightly reduced opacity for softer appearance */
+}
+
+body.dark-theme .input-group .checklist label,
+body.dark-theme .input-group .radio-group label {
+    color: var(--text-color);  /* Ensure checkbox and radio label text is visible */
+}
+
+/* Theme toggle button styles */
+.theme-toggle-btn {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
     border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Hover Effects */
-.hover-effect:hover {
-    background-color: var(--hover-background);
+.theme-toggle-btn:hover {
+    background-color: var(--hover-color);
 }
 
-/* Utility Classes */
-.text-bullish { color: var(--bullish-green); }
-.text-bearish { color: var(--bearish-red); }
-.text-neutral { color: var(--neutral-blue); }
-.text-muted { color: var(--text-secondary); }
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .research-grid, 
+    .outlook-grid, 
+    .sentiment-grid, 
+    .observations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        margin-top: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    body {
+        padding-top: 120px; /* Adjust for mobile */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        padding: 1rem 3%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Accessibility and Focus States */
+*:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Modern Minimalist Footer Styles */
+footer {
+    background-color: transparent;
+    padding: 3rem 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+body.dark-theme footer {
+    background: linear-gradient(
+        to right, 
+        transparent, 
+        var(--secondary-color) 20%, 
+        var(--secondary-color) 80%, 
+        transparent
+    );
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 700px;
+    padding: 1.5rem;
+    position: relative;
+    border-radius: 12px;
+    background: rgba(22, 33, 62, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.contact-info::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(
+        45deg, 
+        rgba(15, 52, 96, 0.2), 
+        rgba(15, 52, 96, 0.1)
+    );
+    border-radius: 13px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.contact-info p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    color: var(--text-color);
+    position: relative;
+    z-index: 1;
+}
+
+.contact-info p:first-child {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: linear-gradient(
+        to right, 
+        var(--text-color), 
+        var(--secondary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.contact-info p:last-child {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    font-style: italic;
+    max-width: 500px;
+}
+
+/* Subtle hover effect */
+.contact-info:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+@media screen and (max-width: 768px) {
+    footer {
+        padding: 2rem 3%;
+    }
+    
+    .contact-info {
+        width: 95%;
+        max-width: 95%;
+        padding: 1rem;
+    }
+    
+    .contact-info p {
+        font-size: 0.9rem;
+    }
+    
+    .contact-info p:last-child {
+        font-size: 0.8rem;
+    }
+}
+
+/* Daily Report Modal Styles */
+.report-modal {
+    position: fixed;
+    z-index: 1500;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report-modal-content {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.report-modal .close-modal {
+    color: var(--text-color);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.report-modal .close-modal:hover {
+    color: var(--accent-color);
+}
+
+.report-modal-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+    background-color: var(--input-background);
+    padding: 1rem;
+    border-radius: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.report-modal .report-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.report-modal .report-actions button {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.report-modal .report-actions button:hover {
+    background-color: color-mix(in srgb, var(--accent-color) 80%, white);
+}
+
+/* Enhanced Report Preview Styles */
+.report-modal .report-preview-container {
+    background-color: var(--input-background);
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.report-modal .report-preview-container pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.report-modal .report-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.report-modal .report-actions button {
+    flex: 1;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.report-modal .report-actions button:hover {
+    background-color: color-mix(in srgb, var(--accent-color) 80%, white);
+    transform: translateY(-2px);
+}
+
+.report-modal .report-actions button:active {
+    transform: translateY(0);
+}
+
+/* PDF Download Button Specific Styles */
+.report-modal .report-actions #download-pdf-report {
+    background-color: #e74c3c;  /* Distinctive color for PDF download */
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.report-modal .report-actions #download-pdf-report::before {
+    content: '📄';  /* PDF icon */
+    font-size: 1.2rem;
+}
+
+.report-modal .report-actions #download-pdf-report:hover {
+    background-color: color-mix(in srgb, #e74c3c 80%, white);
+    transform: translateY(-2px);
+}
